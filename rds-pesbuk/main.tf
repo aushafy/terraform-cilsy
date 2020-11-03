@@ -45,7 +45,7 @@ module "security-group" {
   
   # nama security group
   name = "rds"
-  description = "Security Group for RDS"
+  description = "Security Group for RDS - MANAGED BY TERRAFORM DONT DO ANYTHING MANUALLY!!!"
   vpc_id = data.aws_vpc.default.id
   ingress_cidr_blocks = ["0.0.0.0/0"]
   ingress_rules = [ "mysql-tcp" ] # https://registry.terraform.io/modules/terraform-aws-modules/security-group/aws/latest?tab=inputs
@@ -61,23 +61,24 @@ module "rds" {
   version = "2.20.0"
   
   # nama dari RDS Instance
-  identifier = "RDS_NAME" # CHANGE ME!
+  identifier = "rdsaushafy" # CHANGE ME!
 
   # All available versions: http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_MySQL.html#MySQL.Concepts.VersionMgmt
   engine            = "mysql"
   engine_version    = "5.7.19"
   instance_class    = "db.t2.micro" 
-  allocated_storage = 5 # kapasitas storage dalam Gigabytes
+  allocated_storage = 20 # kapasitas storage dalam Gigabytes
   storage_encrypted = false
 
   # kms_key_id        = "arm:aws:kms:<region>:<account id>:key/<kms key id>"
-  name     = "DB_NAME" # CHANGE ME! nama dari initial database yang mau dibuat
-  username = "DB_USERNAME" # CHANGE ME!
-  password = "DB_PASSWORD" # CHANGE ME!
+  # Memuat informasi dari database di dalam RDS
+  name     = "dbpesbukprod" # CHANGE ME! nama dari initial database yang mau dibuat
+  username = "aushafy" # CHANGE ME!
+  password = "PasswordTest123!" # CHANGE ME!
   port     = "3306"
 
   #vpc_security_group_ids = [data.aws_security_group.default.id] # jika kita ingin pakai security group default, uncomment ini
-  vpc_security_group_ids = [module.security-group.this_security_group_id] # menggunakan Security Group yang tadi sudah dibuat
+  vpc_security_group_ids = [module.security-group.this_security_group_id] # menggunakan Security Group yang tadi sudah dibuat pada data
 
   # setting untuk multiple AZs apabila mau menerapkan High-Available
   multi_az = true
@@ -109,7 +110,7 @@ module "rds" {
   backup_window      = "17:00-20:00" // UTC Time, kalau indonesia time kisaran pukul 12 malam sampai pukul 3 pagi. ref: https://savvytime.com/converter/utc-to-wib
 
   # Snapshot name upon DB deletion
-  final_snapshot_identifier = "SNAPSHOT_NAME" # CHANGE ME!
+  final_snapshot_identifier = "snapshotrdsaushafy" # CHANGE ME!
 
   # Database Deletion Protection
   deletion_protection = false

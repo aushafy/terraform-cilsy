@@ -1,5 +1,5 @@
 variable "region" {
-    default = "ap-southeast-1" // region singapore
+    default = "ap-southeast-1" # region singapore
 }
 
 variable "owner" {
