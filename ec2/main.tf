@@ -42,7 +42,7 @@ module "ec2-instance" {
   instance_count                    = 1
   ami                               = "ami-0c8e97a27be37adfd"
   associate_public_ip_address       = true
-  instance_type                     = "t2.micro"
+  instance_type                     = "t2.medium"
   #ipv6_address_count               = 
   #ipv6_addresses                   = 
   name                              = "ec2-jenkins"
