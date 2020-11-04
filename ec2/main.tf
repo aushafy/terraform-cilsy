@@ -27,11 +27,11 @@ data "aws_subnet" "default" {
 }
 
 locals {
-    user_data = <<EOF
-        #!/bin/bash
-        echo "Hello Terraform!"
-        sudo apt-get update -y && apt-get install python -y 
-    EOF
+  user_data = <<EOF
+#!/bin/bash
+apt-get update -y
+apt-get install python -y
+EOF
 }
 
 module "ec2-instance" {
@@ -43,11 +43,11 @@ module "ec2-instance" {
   ami                               = "ami-0c8e97a27be37adfd"
   associate_public_ip_address       = true
   instance_type                     = "t2.micro"
-  #ipv6_address_count                = 
-  #ipv6_addresses                    = 
+  #ipv6_address_count               = 
+  #ipv6_addresses                   = 
   name                              = "ec2-jenkins"
-  #private_ip                        = 
-  #user_data                         =
+  #private_ip                       = 
+  #user_data                        =
   user_data_base64                  = base64encode(local.user_data)
   vpc_security_group_ids            = [data.aws_security_group.aushafy-sg.id]
   key_name                          = "sshaushafy"
